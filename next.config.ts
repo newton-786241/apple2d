@@ -1,11 +1,8 @@
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  
-};
-
-module.exports = {
-  webpack: (config: { module: { rules: { test: RegExp; use: { loader: string; options: { publicPath: string; outputPath: string; name: string; }; }[]; }[]; }; }) => {
+  webpack: (config) => {
+    // Existing video file handling
     config.module.rules.push({
       test: /\.(mp4|webm|ogg|swf|ogv|flv)$/,
       use: [
@@ -20,8 +17,17 @@ module.exports = {
       ],
     });
 
+    // Resolve fallback for potential hydration issues
+    config.resolve.fallback = { 
+      fs: false, 
+      net: false, 
+      tls: false 
+    };
+
     return config;
   },
+  // Ensure proper handling of client components
+  reactStrictMode: true,
 };
 
 export default nextConfig;

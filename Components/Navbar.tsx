@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { navLists } from '@/data'
 import appleimg from "@/public/assets/images/apple.svg"
